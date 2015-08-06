@@ -1,5 +1,5 @@
-fclose('all')
-log_mpu9250 = readLog_mpu9250('capture10cm.txt');
+
+log_mpu9250 = readLog_mpu9250('capture20cm.txt');
 log_mpu9250.dt_s = log_mpu9250.time_s(2:end) - log_mpu9250.time_s(1:end-1);
 
 % Plot:

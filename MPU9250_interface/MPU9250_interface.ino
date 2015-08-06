@@ -39,7 +39,7 @@ void setup()
     {0x00, MPUREG_PWR_MGMT_2},     // Enable Acc & Gyro
     //{low_pass_filter, MPUREG_CONFIG},         // Use DLPF set Gyroscope bandwidth 184Hz, temperature bandwidth 188Hz
     {0x18, MPUREG_GYRO_CONFIG},    // +-2000dps
-    {0x08, MPUREG_ACCEL_CONFIG},   // +-4G
+    {BITS_FS_16G, MPUREG_ACCEL_CONFIG},   // +-16g
     {0x09, MPUREG_ACCEL_CONFIG_2}, // Set Acc Data Rates, Enable Acc LPF , Bandwidth 184Hz
     {0x30, MPUREG_INT_PIN_CFG},    //
     //{0x40, MPUREG_I2C_MST_CTRL},   // I2C Speed 348 kHz
@@ -201,7 +201,7 @@ void setSleepEnabled(const bool enabled) {
   Returns the reading of the accelerometers in [m/^2].
 */
 void readAcc(float * acc) {
-  float invsensitivity = 32768 / (9.81 * 4);
+  float invsensitivity = 32768 / (9.81 * 16);
   uint8_t msb = readRegVal(MPU9250_ACCEL_XOUT_H);
   uint8_t lsb = readRegVal(MPU9250_ACCEL_XOUT_L);
   acc[0] = lsbmsb2float(msb, lsb) / invsensitivity;
